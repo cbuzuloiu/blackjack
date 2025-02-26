@@ -31,8 +31,11 @@ header {
 
 .dealer-cards,
 .player-cards {
+  width: 100px;
+  height: 140px;
   display: flex;
   gap: 30px;
+  justify-content: center;
 }
 
 button {
@@ -62,69 +65,3 @@ button:active {
   max-width: max-content;
   margin: 30px auto;
 }
-/* GAME CARD DESIGN */
-.card {
-  width: 100px;
-  height: 140px;
-  background: white;
-  border: 2px solid #000;
-  border-radius: 8px;
-  position: relative;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-.card .corner {
-  position: absolute;
-  font-size: 18px;
-  font-weight: bold;
-}
-.card .top-left {
-  top: 5px;
-  left: 5px;
-}
-.card .bottom-right {
-  bottom: 5px;
-  right: 5px;
-  transform: rotate(180deg);
-}
-/* Faint suit in the center */
-.card::after {
-  content: attr(data-suit);
-  font-size: 48px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.1;
-}
-/* Color rules for hearts and diamonds */
-.heart .corner,
-.diamond .corner {
-  color: red;
-}
-/* Card back style */
-.card.back {
-  background: repeating-linear-gradient(
-    45deg,
-    #1976d2,
-    #1976d2 10px,
-    #1565c0 10px,
-    #1565c0 20px
-  );
-  border-color: #1565c0;
-}
-.card.back::after {
-  content: "";
-}
-
-/* Example center decoration using a pseudo-element */
-.card::after {
-  content: attr(data-suit);
-  font-size: 48px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.2;
-}
-
-/* END OF GAME CARD DESIGN */
