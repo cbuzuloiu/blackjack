@@ -67,4 +67,34 @@ function createRandomArray(arr) {
   return arr;
 }
 
-console.log(createRandomArray(cards));
+// initial 2 cards delt to the player and dealer in order 1 player 1 dealer
+function dealCards() {
+  for (let i = 0; i <= 3; i++) {
+    const card = cards.shift();
+    if (i % 2 === 0) {
+      playerCards.push(card);
+    } else {
+      dealerCards.push(card);
+    }
+  }
+}
+
+// === START APLICATION ===
+
+createRandomArray(cards);
+
+console.log(cards);
+
+let playerCards = [];
+let dealerCards = [];
+
+playerCards = [cards[0], cards[2]];
+dealerCards = [cards[1], cards[3]];
+console.log(`Player cards are: ${playerCards}`);
+console.log(`Dealer cards are: ${dealerCards}`);
+
+dealCards();
+
+console.log(`Player cards are: ${playerCards}`);
+console.log(`Dealer cards are: ${dealerCards}`);
+console.log(cards);
