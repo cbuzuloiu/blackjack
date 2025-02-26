@@ -98,3 +98,11 @@ dealCards();
 console.log(`Player cards are: ${playerCards}`);
 console.log(`Dealer cards are: ${dealerCards}`);
 console.log(cards);
+
+const imgCardPlayer = document.querySelectorAll(".player-cards > img");
+
+imgCardPlayer.forEach((element) => {
+  element.src = "/Cards/2c.png";
+});
+
+console.log(imgCardPlayer);
