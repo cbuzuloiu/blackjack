@@ -13,9 +13,113 @@ body {
   max-width: 960px;
   margin: 20px auto;
   padding: 0 32px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 header {
   text-align: center;
 }
+
+.dealer,
+.player {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.dealer-cards,
+.player-cards {
+  display: flex;
+  gap: 30px;
+}
+
+button {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  width: 170px;
+  height: 50px;
+  background-color: #1565c0;
+  border: none;
+}
+
+button:hover {
+  background-color: #083f7e;
+}
+
+button:active {
+  background-color: red;
+}
+
+.interaction {
+  max-width: max-content;
+  margin: 30px auto;
+}
+/* GAME CARD DESIGN */
+.card {
+  width: 100px;
+  height: 140px;
+  background: white;
+  border: 2px solid #000;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.card .corner {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+}
+.card .top-left {
+  top: 5px;
+  left: 5px;
+}
+.card .bottom-right {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(180deg);
+}
+/* Faint suit in the center */
+.card::after {
+  content: attr(data-suit);
+  font-size: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+}
+/* Color rules for hearts and diamonds */
+.heart .corner,
+.diamond .corner {
+  color: red;
+}
+/* Card back style */
+.card.back {
+  background: repeating-linear-gradient(
+    45deg,
+    #1976d2,
+    #1976d2 10px,
+    #1565c0 10px,
+    #1565c0 20px
+  );
+  border-color: #1565c0;
+}
+.card.back::after {
+  content: "";
+}
+
+/* Example center decoration using a pseudo-element */
+.card::after {
+  content: attr(data-suit);
+  font-size: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+}
+
+/* END OF GAME CARD DESIGN */
