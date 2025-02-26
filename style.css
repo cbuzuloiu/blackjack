@@ -57,6 +57,11 @@ button:active {
   max-width: max-content;
   margin: 30px auto;
 }
+
+.statistics {
+  max-width: max-content;
+  margin: 30px auto;
+}
 /* GAME CARD DESIGN */
 .card {
   width: 100px;
