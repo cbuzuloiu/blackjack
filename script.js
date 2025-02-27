@@ -87,7 +87,31 @@ function dealCards() {
 
   // Display cards for Dealer
   imgCardDealer[0].src = `/Cards/${dealerCards[0]}.png`;
+
+  // playerScore = calcScroe(playerCards);
+  // console.log(playerScore);
 }
+
+// function calcScroe(arr) {
+//   let score = 0;
+//   arr.forEach((e) => {
+//     console.log(e[0]);
+
+//     if (
+//       e[0] === "a" ||
+//       e[0] === "j" ||
+//       e[0] === "q" ||
+//       e[0] === "k" ||
+//       e[0] === "10"
+//     ) {
+//       score += 10;
+//     } else {
+//       score += Number(e[0]);
+//     }
+//   });
+
+//   return score;
+// }
 
 // === START APLICATION ===
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
@@ -97,6 +121,7 @@ const btnRestartGame = document.querySelector(".restart-game");
 
 let playerCards = [];
 let dealerCards = [];
+let playerScore = 0;
 
 createRandomArray(cards);
 
@@ -111,9 +136,14 @@ btnDealCards.addEventListener("click", () => {
 btnRestartGame.addEventListener("click", () => {
   cards = [...deckOfCards];
   createRandomArray(cards);
-  let playerCards = [];
-  let dealerCards = [];
+  playerCards = [];
+  dealerCards = [];
+  playerScore = 0;
   btnDealCards.disabled = false;
+  console.log(cards);
+  console.log(playerCards);
+  console.log(dealerCards);
+  console.log(playerScore);
 });
 
 // console.log(cards);
