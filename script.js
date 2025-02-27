@@ -1,6 +1,6 @@
 "use strict";
 
-const cards = [
+const deckOfCards = [
   "ah",
   "2h",
   "3h",
@@ -55,6 +55,8 @@ const cards = [
   "kc",
 ];
 
+let cards = [...deckOfCards];
+
 // shuffleArray
 function createRandomArray(arr) {
   for (let i = arr.length - 1; i >= 0; i--) {
@@ -91,15 +93,30 @@ function dealCards() {
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
 const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
 const btnDealCards = document.querySelector(".deal-cards");
+const btnRestartGame = document.querySelector(".restart-game");
 
 let playerCards = [];
 let dealerCards = [];
 
 createRandomArray(cards);
 
-btnDealCards.addEventListener("click", dealCards);
+btnDealCards.addEventListener("click", () => {
+  dealCards();
+  btnDealCards.disabled = true;
+  console.log(playerCards);
+  console.log(dealerCards);
+  console.log(cards);
+});
 
-console.log(cards);
-console.log(`Player cards are: ${playerCards}`);
-console.log(`Dealer cards are: ${dealerCards}`);
-console.log(cards);
+btnRestartGame.addEventListener("click", () => {
+  cards = [...deckOfCards];
+  createRandomArray(cards);
+  let playerCards = [];
+  let dealerCards = [];
+  btnDealCards.disabled = false;
+});
+
+// console.log(cards);
+// console.log(`Player cards are: ${playerCards}`);
+// console.log(`Dealer cards are: ${dealerCards}`);
+// console.log(cards);

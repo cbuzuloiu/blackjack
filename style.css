@@ -38,6 +38,12 @@ header {
   justify-content: center;
 }
 
+/* .deal-cards:disabled {
+  opacity: 1; 
+  filter: none;
+  color: inherit;
+} */
+
 button {
   font-family: Arial, sans-serif;
   font-size: 18px;
