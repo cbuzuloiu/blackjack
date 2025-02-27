@@ -88,36 +88,38 @@ function dealCards() {
   // Display cards for Dealer
   imgCardDealer[0].src = `/Cards/${dealerCards[0]}.png`;
 
-  // playerScore = calcScroe(playerCards);
-  // console.log(playerScore);
+  playerScore = calcScroe(playerCards);
+  console.log(playerScore);
+  displayCardScore.textContent = playerScore;
 }
 
-// function calcScroe(arr) {
-//   let score = 0;
-//   arr.forEach((e) => {
-//     console.log(e[0]);
+function calcScroe(arr) {
+  let score = 0;
+  arr.forEach((e) => {
+    console.log(e[0]);
 
-//     if (
-//       e[0] === "a" ||
-//       e[0] === "j" ||
-//       e[0] === "q" ||
-//       e[0] === "k" ||
-//       e[0] === "10"
-//     ) {
-//       score += 10;
-//     } else {
-//       score += Number(e[0]);
-//     }
-//   });
+    if (
+      e[0] === "a" ||
+      e[0] === "j" ||
+      e[0] === "q" ||
+      e[0] === "k" ||
+      e[0] === "10"
+    ) {
+      score += 10;
+    } else {
+      score += Number(e[0]);
+    }
+  });
 
-//   return score;
-// }
+  return score;
+}
 
 // === START APLICATION ===
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
 const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
 const btnDealCards = document.querySelector(".deal-cards");
 const btnRestartGame = document.querySelector(".restart-game");
+const displayCardScore = document.querySelector(".player-card-score");
 
 let playerCards = [];
 let dealerCards = [];
@@ -128,9 +130,9 @@ createRandomArray(cards);
 btnDealCards.addEventListener("click", () => {
   dealCards();
   btnDealCards.disabled = true;
-  console.log(playerCards);
-  console.log(dealerCards);
-  console.log(cards);
+  // console.log(playerCards);
+  // console.log(dealerCards);
+  // console.log(cards);
 });
 
 btnRestartGame.addEventListener("click", () => {
@@ -140,10 +142,22 @@ btnRestartGame.addEventListener("click", () => {
   dealerCards = [];
   playerScore = 0;
   btnDealCards.disabled = false;
-  console.log(cards);
-  console.log(playerCards);
-  console.log(dealerCards);
-  console.log(playerScore);
+
+  // Reset Display cards for Player
+  imgCardPlayer.forEach((element) => {
+    element.src = `/Cards/back01.png`;
+  });
+
+  // Reset Display cards for Dealer
+  imgCardDealer.forEach((element) => {
+    element.src = `/Cards/back01.png`;
+  });
+
+  displayCardScore.textContent = 0;
+  // console.log(cards);
+  // console.log(playerCards);
+  // console.log(dealerCards);
+  // console.log(playerScore);
 });
 
 // console.log(cards);
