@@ -137,7 +137,7 @@ function hit() {
 
 // === START APLICATION ===
 const containerPlayerCards = document.querySelector(".player-cards");
-const imgCardPlayer = document.querySelectorAll(".player-cards > img");
+let imgCardPlayer = document.querySelectorAll(".player-cards > img");
 const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
 const btnDealCards = document.querySelector(".deal-cards");
 const btnRestartGame = document.querySelector(".restart-game");
@@ -177,10 +177,12 @@ btnRestartGame.addEventListener("click", () => {
   });
 
   displayCardScore.textContent = 0;
-  // console.log(cards);
-  // console.log(playerCards);
-  // console.log(dealerCards);
-  // console.log(playerScore);
+
+  imgCardPlayer = document.querySelectorAll(".player-cards > img");
+
+  for (let i = 2; i < imgCardPlayer.length; i++) {
+    imgCardPlayer[i].remove();
+  }
 });
 
 btnHit.addEventListener("click", () => {
