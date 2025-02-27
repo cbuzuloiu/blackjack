@@ -77,28 +77,24 @@ function dealCards() {
       dealerCards.push(card);
     }
   }
+
+  // Display cards for Player
+  imgCardPlayer.forEach((element, i) => {
+    element.src = `/Cards/${playerCards[i]}.png`;
+  });
 }
 
 // === START APLICATION ===
-
-createRandomArray(cards);
-
-console.log(cards);
+const imgCardPlayer = document.querySelectorAll(".player-cards > img");
+const imgCardDealer = document.querySelectorAll(".player-cards > img");
 
 let playerCards = [];
 let dealerCards = [];
 
+createRandomArray(cards);
 dealCards();
 
+console.log(cards);
 console.log(`Player cards are: ${playerCards}`);
 console.log(`Dealer cards are: ${dealerCards}`);
 console.log(cards);
-
-const imgCardPlayer = document.querySelectorAll(".player-cards > img");
-
-imgCardPlayer.forEach((element, i) => {
-  console.log(playerCards[i]);
-  element.src = `/Cards/${playerCards[i]}.png`;
-});
-
-console.log(imgCardPlayer);
