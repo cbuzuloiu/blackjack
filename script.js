@@ -91,34 +91,57 @@ function dealCards() {
   playerScore = calcScroe(playerCards);
   console.log(playerScore);
   displayCardScore.textContent = playerScore;
+
+  // aici ar trebuii sa vina codul daca avem direct 21 si sa se verifice si daca dealerul are 21
 }
 
-function calcScroe(arr) {
+function calcScroe(value) {
   let score = 0;
-  arr.forEach((e) => {
-    console.log(e[0]);
+  if (Array.isArray(value)) {
+    value.forEach((e) => {
+      console.log(e[0]);
+      if (e[0] === "a") {
+        score += 11;
+      } else if (e[0] === "j" || e[0] === "q" || e[0] === "k" || e[0] === "1") {
+        score += 10;
+      } else {
+        score += Number(e[0]);
+      }
+    });
 
-    if (
-      e[0] === "a" ||
-      e[0] === "j" ||
-      e[0] === "q" ||
-      e[0] === "k" ||
-      e[0] === "10"
+    return score;
+  } else {
+    if (value[0] === "a") {
+      score += 11;
+    } else if (
+      value[0] === "j" ||
+      value[0] === "q" ||
+      value[0] === "k" ||
+      value[0] === "1"
     ) {
       score += 10;
     } else {
-      score += Number(e[0]);
+      score += Number(value[0]);
     }
-  });
 
-  return score;
+    return score;
+  }
+}
+
+function hit() {
+  const card = cards.shift();
+  const cardScore = calcScroe(card);
+  // console.log(`New card is ${cardScore}`);
+  return [cardScore, card];
 }
 
 // === START APLICATION ===
+const containerPlayerCards = document.querySelector(".player-cards");
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
 const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
 const btnDealCards = document.querySelector(".deal-cards");
 const btnRestartGame = document.querySelector(".restart-game");
+const btnHit = document.querySelector(".hit");
 const displayCardScore = document.querySelector(".player-card-score");
 
 let playerCards = [];
@@ -158,6 +181,18 @@ btnRestartGame.addEventListener("click", () => {
   // console.log(playerCards);
   // console.log(dealerCards);
   // console.log(playerScore);
+});
+
+btnHit.addEventListener("click", () => {
+  const hitResult = hit();
+  console.log(hitResult);
+  playerScore += hitResult[0];
+  console.log(playerScore);
+  displayCardScore.textContent = playerScore;
+
+  const newImg = document.createElement("img");
+  newImg.setAttribute("src", `/Cards/${hitResult[1]}.png`);
+  containerPlayerCards.appendChild(newImg);
 });
 
 // console.log(cards);

@@ -31,12 +31,22 @@ header {
 
 .dealer-cards,
 .player-cards {
-  width: 100px;
-  height: 140px;
+  /* max-width: 960px; */
   display: flex;
   gap: 30px;
   justify-content: center;
+  flex-wrap: wrap;
 }
+
+.dealer-cards img,
+.player-cards img {
+  width: 100px;
+  height: 140px;
+}
+
+/* .player-cards img {
+  flex-wrap: wrap;
+} */
 
 /* .deal-cards:disabled {
   opacity: 1; 
