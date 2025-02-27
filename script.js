@@ -67,8 +67,8 @@ function createRandomArray(arr) {
   return arr;
 }
 
-// initial 2 cards delt to the player and dealer in order 1 player 1 dealer
 function dealCards() {
+  // initial 2 cards delt to the player and dealer in order 1 player 1 dealer
   for (let i = 0; i <= 3; i++) {
     const card = cards.shift();
     if (i % 2 === 0) {
@@ -82,11 +82,14 @@ function dealCards() {
   imgCardPlayer.forEach((element, i) => {
     element.src = `/Cards/${playerCards[i]}.png`;
   });
+
+  // Display cards for Dealer
+  imgCardDealer[0].src = `/Cards/${dealerCards[0]}.png`;
 }
 
 // === START APLICATION ===
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
-const imgCardDealer = document.querySelectorAll(".player-cards > img");
+const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
 
 let playerCards = [];
 let dealerCards = [];
