@@ -90,12 +90,14 @@ function dealCards() {
 // === START APLICATION ===
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
 const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
+const btnDealCards = document.querySelector(".deal-cards");
 
 let playerCards = [];
 let dealerCards = [];
 
 createRandomArray(cards);
-dealCards();
+
+btnDealCards.addEventListener("click", dealCards);
 
 console.log(cards);
 console.log(`Player cards are: ${playerCards}`);
