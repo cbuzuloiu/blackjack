@@ -88,11 +88,6 @@ console.log(cards);
 let playerCards = [];
 let dealerCards = [];
 
-playerCards = [cards[0], cards[2]];
-dealerCards = [cards[1], cards[3]];
-console.log(`Player cards are: ${playerCards}`);
-console.log(`Dealer cards are: ${dealerCards}`);
-
 dealCards();
 
 console.log(`Player cards are: ${playerCards}`);
@@ -101,8 +96,9 @@ console.log(cards);
 
 const imgCardPlayer = document.querySelectorAll(".player-cards > img");
 
-imgCardPlayer.forEach((element) => {
-  element.src = "/Cards/2c.png";
+imgCardPlayer.forEach((element, i) => {
+  console.log(playerCards[i]);
+  element.src = `/Cards/${playerCards[i]}.png`;
 });
 
 console.log(imgCardPlayer);
