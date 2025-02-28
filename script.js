@@ -90,17 +90,14 @@ function dealCards() {
   imgCardDealer[0].src = `/Cards/${dealerCards[0]}.png`;
 
   playerScore = calcScroe(playerCards);
-  console.log(playerScore);
-  displayCardScore.textContent = playerScore;
 
-  // aici ar trebuii sa vina codul daca avem direct 21 si sa se verifice si daca dealerul are 21
+  displayCardScorePlayer.textContent = playerScore;
 }
 
 function calcScroe(value) {
   let score = 0;
   if (Array.isArray(value)) {
     value.forEach((e) => {
-      console.log(e[0]);
       if (e[0] === "a") {
         score += 11;
       } else if (e[0] === "j" || e[0] === "q" || e[0] === "k" || e[0] === "1") {
@@ -135,41 +132,32 @@ function hitReturnCardScore() {
   return [cardScore, card];
 }
 
-// === START APLICATION ===
-const containerPlayerCards = document.querySelector(".player-cards");
-const containerWinner = document.querySelector(".winner > h1");
-let imgCardPlayer = document.querySelectorAll(".player-cards > img");
-const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
-const btnDealCards = document.querySelector(".deal-cards");
-const btnStand = document.querySelector(".stand");
-const btnRestartGame = document.querySelector(".restart-game");
-const btnHit = document.querySelector(".hit");
-const displayCardScore = document.querySelector(".player-card-score");
+function dealerHand() {
+  console.log(dealerCards);
+  dealerScore = calcScroe(dealerCards);
+  console.log(`The dealres scored ${dealerScore}`);
 
-let playerCards = [];
-let dealerCards = [];
-let playerScore = 0;
+  while (dealerScore < 17) {
+    const hitResult = hitReturnCardScore();
+    console.log(hitResult);
+    dealerScore += hitResult[0];
+    console.log(dealerScore);
 
-btnHit.disabled = true;
-btnStand.disabled = true;
-btnRestartGame.disabled = true;
+    const newImg = document.createElement("img");
+    newImg.setAttribute("src", `/Cards/${hitResult[1]}.png`);
+    containerDealerCards.appendChild(newImg);
+  }
 
-createRandomArray(cards);
+  return dealerScore;
+}
 
-btnDealCards.addEventListener("click", () => {
-  dealCards();
-  btnHit.disabled = false;
-  btnStand.disabled = false;
-  btnRestartGame.disabled = false;
-  btnDealCards.disabled = true;
-});
-
-btnRestartGame.addEventListener("click", () => {
+function restartRound() {
   cards = [...deckOfCards];
   createRandomArray(cards);
   playerCards = [];
   dealerCards = [];
   playerScore = 0;
+  dealerScore = 0;
   btnDealCards.disabled = false;
 
   // Reset Display cards for Player
@@ -182,7 +170,7 @@ btnRestartGame.addEventListener("click", () => {
     element.src = `/Cards/back01.png`;
   });
 
-  displayCardScore.textContent = 0;
+  displayCardScorePlayer.textContent = 0;
 
   imgCardPlayer = document.querySelectorAll(".player-cards > img");
 
@@ -190,10 +178,65 @@ btnRestartGame.addEventListener("click", () => {
     imgCardPlayer[i].remove();
   }
 
+  imgCardDealer = document.querySelectorAll(".dealer-cards > img");
+
+  for (let i = 2; i < imgCardDealer.length; i++) {
+    imgCardDealer[i].remove();
+  }
+
+  displayCardScoreDealer.textContent = 0;
+
+  containerWinner.textContent = "";
+
   // btnHit.disabled = false;
   btnHit.disabled = true;
   btnStand.disabled = true;
   btnRestartGame.disabled = true;
+}
+
+// === START APLICATION ===
+const containerPlayerCards = document.querySelector(".player-cards");
+const containerDealerCards = document.querySelector(".dealer-cards");
+const containerWinner = document.querySelector(".winner > h1");
+const containerRound = document.querySelector(".round");
+const containerPlayerScoreTotal = document.querySelector(".player-score-total");
+const containerDealerScoreTotal = document.querySelector(".dealer-score-total");
+let imgCardPlayer = document.querySelectorAll(".player-cards > img");
+let imgCardDealer = document.querySelectorAll(".dealer-cards > img");
+const btnDealCards = document.querySelector(".deal-cards");
+const btnStand = document.querySelector(".stand");
+const btnRestartGame = document.querySelector(".restart-game");
+const btnHit = document.querySelector(".hit");
+const displayCardScorePlayer = document.querySelector(".player-card-score");
+const displayCardScoreDealer = document.querySelector(".dealer-card-score");
+
+let playerCards = [];
+let dealerCards = [];
+let playerScore = 0;
+let dealerScore = 0;
+let playerScoreTotal = 0;
+let dealerScoreTotal = 0;
+let round = 0;
+
+btnHit.disabled = true;
+btnStand.disabled = true;
+btnRestartGame.disabled = true;
+
+createRandomArray(cards);
+
+btnDealCards.addEventListener("click", () => {
+  dealCards();
+  round++;
+
+  containerRound.textContent = round;
+  btnHit.disabled = false;
+  btnStand.disabled = false;
+  btnRestartGame.disabled = false;
+  btnDealCards.disabled = true;
+});
+
+btnRestartGame.addEventListener("click", () => {
+  restartRound();
 });
 
 btnHit.addEventListener("click", () => {
@@ -201,7 +244,7 @@ btnHit.addEventListener("click", () => {
   console.log(hitResult);
   playerScore += hitResult[0];
   console.log(playerScore);
-  displayCardScore.textContent = playerScore;
+  displayCardScorePlayer.textContent = playerScore;
 
   const newImg = document.createElement("img");
   newImg.setAttribute("src", `/Cards/${hitResult[1]}.png`);
@@ -209,11 +252,37 @@ btnHit.addEventListener("click", () => {
 
   if (playerScore > 21) {
     containerWinner.textContent = "BUST / DEALER WINS";
+    dealerScoreTotal++;
+    containerDealerScoreTotal.textContent = dealerScoreTotal;
     btnHit.disabled = true;
+    btnStand.disabled = true;
   }
 });
 
 btnStand.addEventListener("click", () => {
   // Display cards for Dealer
   imgCardDealer[1].src = `/Cards/${dealerCards[1]}.png`;
+  dealerScore = dealerHand();
+  console.log(`PLAYER: ${playerScore}`);
+  console.log(`DEALER: ${dealerScore}`);
+  displayCardScoreDealer.textContent = dealerScore;
+
+  if (dealerScore > 21) {
+    playerScoreTotal++;
+    containerPlayerScoreTotal.textContent = playerScoreTotal;
+    containerWinner.textContent = "PLAYER WINS";
+  } else if (playerScore > dealerScore) {
+    playerScoreTotal++;
+    containerPlayerScoreTotal.textContent = playerScoreTotal;
+    containerWinner.textContent = "PLAYER WINS";
+  } else if (playerScore < dealerScore) {
+    dealerScoreTotal++;
+    containerDealerScoreTotal.textContent = dealerScoreTotal;
+    containerWinner.textContent = "DEALER WINS";
+  } else {
+    containerWinner.textContent = "DRAW";
+  }
+
+  btnHit.disabled = true;
+  btnStand.disabled = true;
 });
