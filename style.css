@@ -44,16 +44,6 @@ header {
   height: 140px;
 }
 
-/* .player-cards img {
-  flex-wrap: wrap;
-} */
-
-/* .deal-cards:disabled {
-  opacity: 1; 
-  filter: none;
-  color: inherit;
-} */
-
 button {
   font-family: Arial, sans-serif;
   font-size: 18px;
@@ -80,4 +70,12 @@ button:active {
 .statistics {
   max-width: max-content;
   margin: 30px auto;
+}
+
+.winner {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  color: rebeccapurple;
+  font-weight: 900;
 }

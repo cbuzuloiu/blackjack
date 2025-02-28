@@ -1,4 +1,5 @@
 "use strict";
+// IN THS GAME VERSION ACE IS ALWAYS 11 POINTS
 
 const deckOfCards = [
   "ah",
@@ -128,18 +129,19 @@ function calcScroe(value) {
   }
 }
 
-function hit() {
+function hitReturnCardScore() {
   const card = cards.shift();
   const cardScore = calcScroe(card);
-  // console.log(`New card is ${cardScore}`);
   return [cardScore, card];
 }
 
 // === START APLICATION ===
 const containerPlayerCards = document.querySelector(".player-cards");
+const containerWinner = document.querySelector(".winner > h1");
 let imgCardPlayer = document.querySelectorAll(".player-cards > img");
 const imgCardDealer = document.querySelectorAll(".dealer-cards > img");
 const btnDealCards = document.querySelector(".deal-cards");
+const btnStand = document.querySelector(".stand");
 const btnRestartGame = document.querySelector(".restart-game");
 const btnHit = document.querySelector(".hit");
 const displayCardScore = document.querySelector(".player-card-score");
@@ -148,14 +150,18 @@ let playerCards = [];
 let dealerCards = [];
 let playerScore = 0;
 
+btnHit.disabled = true;
+btnStand.disabled = true;
+btnRestartGame.disabled = true;
+
 createRandomArray(cards);
 
 btnDealCards.addEventListener("click", () => {
   dealCards();
+  btnHit.disabled = false;
+  btnStand.disabled = false;
+  btnRestartGame.disabled = false;
   btnDealCards.disabled = true;
-  // console.log(playerCards);
-  // console.log(dealerCards);
-  // console.log(cards);
 });
 
 btnRestartGame.addEventListener("click", () => {
@@ -183,10 +189,15 @@ btnRestartGame.addEventListener("click", () => {
   for (let i = 2; i < imgCardPlayer.length; i++) {
     imgCardPlayer[i].remove();
   }
+
+  // btnHit.disabled = false;
+  btnHit.disabled = true;
+  btnStand.disabled = true;
+  btnRestartGame.disabled = true;
 });
 
 btnHit.addEventListener("click", () => {
-  const hitResult = hit();
+  const hitResult = hitReturnCardScore();
   console.log(hitResult);
   playerScore += hitResult[0];
   console.log(playerScore);
@@ -195,9 +206,14 @@ btnHit.addEventListener("click", () => {
   const newImg = document.createElement("img");
   newImg.setAttribute("src", `/Cards/${hitResult[1]}.png`);
   containerPlayerCards.appendChild(newImg);
+
+  if (playerScore > 21) {
+    containerWinner.textContent = "BUST / DEALER WINS";
+    btnHit.disabled = true;
+  }
 });
 
-// console.log(cards);
-// console.log(`Player cards are: ${playerCards}`);
-// console.log(`Dealer cards are: ${dealerCards}`);
-// console.log(cards);
+btnStand.addEventListener("click", () => {
+  // Display cards for Dealer
+  imgCardDealer[1].src = `/Cards/${dealerCards[1]}.png`;
+});
